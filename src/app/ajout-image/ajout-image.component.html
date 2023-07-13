@@ -1,0 +1,16 @@
+<div class="container">
+  <!-- Existing image grid -->
+
+  <h3>Add New Image</h3>
+  <form (ngSubmit)="addImage()">
+    <div class="form-group">
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" class="form-control" id="imageUrl" [(ngModel)]="newImage.url" name="imageUrl" required>
+    </div>
+    <div class="form-group">
+      <label for="imageDescription">Description:</label>
+      <textarea class="form-control" id="imageDescription" [(ngModel)]="newImage.description" name="imageDescription" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Image</button>
+  </form>
+</div>

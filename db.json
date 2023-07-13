@@ -1,0 +1,12 @@
+
+{
+  "products": [
+    {
+      "name": "Phone Mini",
+      "price": 699,
+      "description": "A great phone with one of the best cameras",
+      "img": "/assets/images/2.jpg",
+      "id": 1
+    }
+  ]
+}

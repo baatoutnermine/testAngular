@@ -1,0 +1,10 @@
+{
+  "images": [
+    {
+      "title": "Phone Mini",
+      "description": "A great phone with one of the best cameras",
+      "img": "/assets/images/2.jpg",
+      "category":"dance"
+    }
+  ]
+  }
