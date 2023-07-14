@@ -1,68 +1,37 @@
-<!-- <div class="container">
+<div class="container">
   <div class="row">
     <ng-container *ngFor="let image of images">
       <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
         <div class="card">
-          <img class="card-img-top" src="{{ image.urls.thumb }}" alt="{{ image.alt_description }}">
+          <img class="card-img-top" [src]="'http://localhost:8000/' + image.image" (click)="showDetails(image)">
           <div class="card-body">
-            <h5 class="card-title">{{ image.alt_description }}</h5>
-            <button class="btn btn-primary"  >Show</button>
+            <h5 class="card-title">{{image.description }}</h5>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="showDetails(image)">
+             detail
+            </button>
+
           </div>
         </div>
       </div>
     </ng-container>
   </div>
-
-
 </div>
 
-<!-- Fullscreen Modal -->
-
-
-
-<div class="container-fluid mt-5">
-  <div class="row justify-content-center">
-
-    <div *ngFor="let image of images " class="col-md-3 mb-4">
-      <div class="card h-100 shadow">
-        <img class="card-img-top" src="{{ image.img }}"  >
-        <div class="card-body d-flex flex-column">
-
-          <p class="card-text flex-grow-1">{{ image.description}}</p>
-
-          <div class="mt-auto">
-            <a  class="btn btn-primary mb-2" >detail</a>
-            <button >Delete</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <nav aria-label="Pagination">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="page === 1">
-        <a class="page-link" (click)="previousPage()" href="#" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" (click)="nextPage()" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
-</div>
-<!--
-<div class="modal" [class.show]="showModal">
+<!-- Details Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{ selectedImage?.alt_description }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideDetails()">
+        <h5 class="modal-title">{{ selectedImage?.description }}</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
-        <img class="img-fluid" src="{{ selectedImage?.urls.regular }}" alt="{{ selectedImage?.alt_description }}">
+        <img class="img-fluid" src="{{ selectedImage?.image }}" alt="{{ selectedImage?.alt_description }}">
         <p>{{ selectedImage?.description }}</p>
       </div>
     </div>
   </div>
-</div> -->
+</div>

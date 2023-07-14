@@ -15,50 +15,41 @@ export class ImagesComponent implements OnInit {
   showModal: boolean = false;
   selectedImage: any;
 
-  constructor(private service: ServiceImageService) { }
+  constructor(private Service: ServiceImageService) { }
+
 
   ngOnInit(): void {
-    this.getAllImages();
+    this.getImages();
   }
 
-  // getImages(): void {
-  //   this.unsplashService.getImages(this.page, this.perPage).subscribe(data => {
-  //     this.images = data;
-  //   });
-  // }
+  getImages(): void {
+    this.Service.getImage().subscribe(data => {
+      this.images = data;
+    });
+  }
 
-  // showDetails(image: any): void {
-  //   this.selectedImage = image;
-  //   this.showModal = true;
-  // }
-
-  // hideDetails(): void {
-  //   this.showModal = false;
-  // }
   nextPage(): void {
     this.page++;
-    this.getAllImages();
+    this.getImages();
   }
 
   previousPage(): void {
     if (this.page > 1) {
       this.page--;
-      this.getAllImages();
+      this.getImages();
     }
   }
-  // deleteImage(imageId: string): void {
-  //   this.unsplashService.deleteImage(imageId).subscribe(() => {
 
-  //     this.images = this.images.filter(image => image.id !== imageId);
-  //   });
-  // }
-  public getAllImages()
-  { this.service.getAllImages(this.page, this.perPage).subscribe(data=>{
-    this.images=data;
-    console.log(this.images)
+  showDetails(image: any): void {
 
-  })
-
+    this.selectedImage = image;
+    console.log(this.selectedImage)
+    this.showModal = true;
   }
+
+  hideDetails(): void {
+    this.showModal = false;
+  }
+
 }
 

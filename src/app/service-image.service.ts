@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Image } from './image';
@@ -6,52 +6,45 @@ import { Image } from './image';
   providedIn: 'root'
 })
 export class ServiceImageService {
-  accessKey: string = 'sbVKKcD1AiYaaUe-09gwcro4_6VxWW9QOgLXlrCb9CI';
+  token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODM5Njg5LCJpYXQiOjE2ODkzMDM2ODksImp0aSI6ImZlNzdmYmI4NzU2MDRiOTI4NTFhNmNiMDU4MmRkODE2IiwidXNlcl9pZCI6NX0.7zwVb-Pa91TtkKgp3U5hYWVUZfr2594T2gl7O2upOZo';
+  apiUrl = 'http://localhost:8000';
 
-  constructor(private client: HttpClient) { }
-host="http://localhost:3000/images"
-  // getImages(page: number, perPage: number) {
-  //   const apiUrl = `https://api.unsplash.com/photos/?page=${page}&per_page=${perPage}&client_id=${this.accessKey}`;
-  //   return this.http.get<any[]>(apiUrl);
+  constructor(private http: HttpClient) { }
+
+
+  getImage() {
+    const apiUrl = `${this.apiUrl}/image/listeImage`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this.http.get<any[]>(apiUrl,{headers});
+  }
+
+  // public getAllImages(page: number, perPage: number):Observable<Image[]>{
+  //  const host="http://localhost:3000/images"
+  //   return this.client.get<Image[]>(host);
   // }
 
-
-  public getAllImages(page: number, perPage: number):Observable<Image[]>{
-   const host="http://localhost:3000/images/?page=${page}&per_page=${perPage}"
-    return this.client.get<Image[]>(host);
-  }
-  getImageById(productId: string): Observable<Image> {
-    const url = `${this.host}/${productId}`;
-    return this.client.get<Image>(url);
-  }
-  public addImage(image:Image):Observable<any> {
-    return this.client.post<Image>(this.host,image);
-  }
+  // public addImage(image:Image):Observable<any> {
+  //   return this.client.post<Image>(this.host,image);
+  // }
 
 
 
   public deleteImage(id: number): Observable<any> {
-    const url = `${this.host}/${id}`;
-    return this.client.delete(url);
+    const url = `http://localhost:8000/image/deleteimage/${id}`;
+    return this.http.delete(url);
   }
-  // uploadImage(url: string, description: string) {
-  //   const apiUrl = 'https://api.unsplash.com/photos';
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessKey}`);
+  
+  addImage(imageData: FormData): Observable<any> {
+    const apiUrl = `${this.apiUrl}/image/createimage`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
 
-  //   const newImage = {
-  //     alt_description: description,
-  //     urls: {
-  //       regular: url
-  //     }
-  //   };
+    return this.http.post(apiUrl, imageData, { headers });
+  }
 
-  //   return this.http.post<any>(apiUrl, newImage, { headers });
-  // }
 
-  // deleteImage(imageId: string) {
-  //   const apiUrl = `https://api.unsplash.com/photos/${imageId}`;
-  //   const headers = new HttpHeaders().set('Authorization', `Client-ID ${this.accessKey}`);
-
-  //   return this.http.delete(apiUrl, { headers });
-  // }
+  findImageByCategory(categoryId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/image/findimage/${categoryId}/`);
+  }
 }

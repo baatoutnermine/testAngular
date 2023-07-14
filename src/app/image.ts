@@ -1,7 +1,11 @@
+import { Categorie } from "./categorie";
+
 export class Image {
   id?:number;
   "title":string;
   "description":string;
-  "category":string;
-  "img":string;
+  "image":File;
+  "tags":string
+  "categorie":Categorie;
+
 }

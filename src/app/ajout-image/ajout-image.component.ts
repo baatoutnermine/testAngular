@@ -12,16 +12,34 @@ export class AjoutImageComponent implements OnInit {
     url: '',
     description: ''
   };
-  constructor(private unsplashService: ServiceImageService){}
+  constructor(private imageService: ServiceImageService){}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
-  // addImage(): void {
-  //   this.unsplashService.uploadImage(this.newImage.url, this.newImage.description)
-  //     .subscribe(newImage => {
-  //       this.images.push(newImage);
-  //       this.newImage.url = '';
-  //       this.newImage.description = '';
-  //     });
-  // }
+  selectedFile: File | null = null;
+  description: string = '';
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0] as File;
+  }
+
+  onUpload(): void {
+    if (this.selectedFile) {
+      const imageData = new FormData();
+      imageData.append('image', this.selectedFile);
+      imageData.append('description', this.description);
+
+      this.imageService.addImage(imageData)
+        .subscribe(
+          response => {
+            // Handle the successful upload response
+            console.log('Image uploaded successfully:', response);
+          },
+          error => {
+            // Handle the error response
+            console.error('Error uploading image:', error);
+          }
+        );
+    }
+  }
 }
